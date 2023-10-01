@@ -1,2 +1,5 @@
 # Ignorando arquivos
 Exemplo.py
+
+# Ignorar todos os arquivos em uma pasta
+__pycache__/
