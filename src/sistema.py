@@ -2,19 +2,35 @@
 from graphics import *
 
 # Importando o csv de dados de login
-dados = open("src/csv/dados.csv","r")
-infos = dados.readlines()
-dados.close()
+dados = open("src/csv/dados.csv","r+")
+linhas = dados.readlines()
+
+cabecalho = linhas[0]
+linhas = linhas[1:]
 
 # Criando a janela gráfica para o sistema.
 janela = GraphWin("Plataforma de Exames - Login", 700,700)
 
+titulo_login = Text(Point(350, 180), "Tela de Login")
+titulo_login.setSize(20)
+titulo_login.draw(janela)
+
+# Criando variáveis iniciais para condicional
+senha_resultado = ""
+
 # Criando uma função para verificação de login para abrir o sistema
 def login(id, senha):
-    for i in range(len(infos)):
-        if id in infos[i]:
-            if senha in infos[i]:
+    for linha in linhas:
+        id_verdadeiro, senha_verdadeiro = linha.strip().split(',')
+        if id == id_verdadeiro:
+            if senha == senha_verdadeiro:
                 return True
+                break
+            else:
+                senha_resultado = "Senha Errada"
+                return False
+        else:
+            return False
             
 # Função para criar perguntas e campos
 def pergunta_login(text, y, width):
@@ -27,11 +43,17 @@ def pergunta_login(text, y, width):
 id_entrada = pergunta_login("Id:",230,15)
 senha_entrada = pergunta_login("Senha:",290,15)
 
-# Botão de Enviar
-button = Rectangle(Point(250,350), Point(350,380))
+# Botão de Login
+button = Rectangle(Point(300,350), Point(400,380))
+button.setFill("gray")
+button.draw(janela)
+Text(Point(350, 365), "Login").draw(janela)
+
+# Botão de Cadastro
+button = Rectangle(Point(300,410), Point(400,440))
 button.setFill("green")
 button.draw(janela)
-Text(Point(300, 365), "Enviar").draw(janela)
+Text(Point(350, 425), "Cadastro").draw(janela)
 
 janela.getMouse()
 
@@ -41,10 +63,16 @@ senha = str(senha_entrada.getText())
 login_entrada = login(id,senha)
 
 while login_entrada != True:
-    Text(Point(300, 400), "Login inválido").draw(janela)
-    id = str(id_entrada.getText())
-    senha = str(senha_entrada.getText())
-    login_entrada = login(id,senha)
+    if senha_resultado == "Senha Errada":
+        Text(Point(300, 400), "Senha Errada").draw(janela)
+        senha = str(senha_entrada.getText())
+        login_entrada = login(id,senha)
+    else:
+        Text(Point(300, 400), "Login inválido. Insira seus dados novamente e clique em cadastrar.").draw(janela)
+        id = str(id_entrada.getText())
+        senha = str(senha_entrada.getText())
+        login_entrada = login(id,senha)
+
 
 janela.close()
 print("LOGIN FEITO")
@@ -78,7 +106,7 @@ glicose = glicose_paciente.getText()
 colesterol = colesterol_total.getText()
 
 # Importando o csv de dados de paciente para registro
-paciente = open("src/csv/paciente.csv","w")
+paciente = open("csv/paciente.csv","w")
 paciente_string = nome + "," + idade + "," + hemoglobina + "," + glicose + "," + colesterol
 print(paciente_string)
 paciente.write(paciente_string)
