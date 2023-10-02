@@ -47,7 +47,7 @@ while login_entrada != True:
     login_entrada = login(id,senha)
 
 janela.close()
-
+print("LOGIN FEITO")
 
 # Criando uma janela de visualização do paciente para registro de informações de exame de sangue.
 janela = GraphWin("Plataforma de Exames - Paciente", 700,700)
@@ -65,27 +65,24 @@ hemoglobina_paciente = pergunta_paciente("Hemoglobina (g/dL):",260,5)
 glicose_paciente = pergunta_paciente("Glicose (mg/dL):",290,5)
 colesterol_total = pergunta_paciente("Colesterol (mg/dL):",320,5)
 
-# Importando o csv de dados de paciente
-dados = open("src/csv/paciente.csv","w+")
-infos = dados.readlines()
-dados.close()
-
-
 # Botão de Enviar os dados
 button = Rectangle(Point(250,350), Point(350,380))
 button.setFill("green")
 button.draw(janela)
 Text(Point(300, 365), "Enviar").draw(janela)
 
+nome = nome_paciente.getText()
+idade = idade_paciente.getText()
+hemoglobina = hemoglobina_paciente.getText()
+glicose = glicose_paciente.getText()
+colesterol = colesterol_total.getText()
 
-
-
+# Importando o csv de dados de paciente para registro
+paciente = open("src/csv/paciente.csv","w")
+paciente_string = nome + "," + idade + "," + hemoglobina + "," + glicose + "," + colesterol
+print(paciente_string)
+paciente.write(paciente_string)
+paciente.close()
 
 janela.getMouse()
 janela.close()
-
-
-
-
-
-print("LOGIN FEITO")
