@@ -7,7 +7,7 @@ infos = dados.readlines()
 dados.close()
 
 # Criando a janela gráfica para o sistema.
-janela = GraphWin("Plataforma de Exames", 700,700)
+janela = GraphWin("Plataforma de Exames - Login", 700,700)
 
 # Criando uma função para verificação de login para abrir o sistema
 def login(id, senha):
@@ -17,15 +17,15 @@ def login(id, senha):
                 return True
             
 # Função para criar perguntas e campos
-def pergunta_entrada(text, y, width):
+def pergunta_login(text, y, width):
     Text(Point(250, y), text).draw(janela)
     entry = Entry(Point(350, y), width)
     entry.draw(janela)
     return entry
 
 # Criando perguntas e os campos
-id_entrada = pergunta_entrada("Id:",230,15)
-senha_entrada = pergunta_entrada("Senha:",290,15)
+id_entrada = pergunta_login("Id:",230,15)
+senha_entrada = pergunta_login("Senha:",290,15)
 
 # Botão de Enviar
 button = Rectangle(Point(250,350), Point(350,380))
@@ -47,4 +47,45 @@ while login_entrada != True:
     login_entrada = login(id,senha)
 
 janela.close()
+
+
+# Criando uma janela de visualização do paciente para registro de informações de exame de sangue.
+janela = GraphWin("Plataforma de Exames - Paciente", 700,700)
+
+def pergunta_paciente(text, y, width):
+    Text(Point(250, y), text).draw(janela)
+    entry = Entry(Point(350, y), width)
+    entry.draw(janela)
+    return entry
+
+# Criação das perguntas
+nome_paciente = pergunta_paciente("Nome:",200,15)
+idade_paciente = pergunta_paciente("Idade:",230,5)
+hemoglobina_paciente = pergunta_paciente("Hemoglobina (g/dL):",260,5)
+glicose_paciente = pergunta_paciente("Glicose (mg/dL):",290,5)
+colesterol_total = pergunta_paciente("Colesterol (mg/dL):",320,5)
+
+# Importando o csv de dados de paciente
+dados = open("src/csv/paciente.csv","w+")
+infos = dados.readlines()
+dados.close()
+
+
+# Botão de Enviar os dados
+button = Rectangle(Point(250,350), Point(350,380))
+button.setFill("green")
+button.draw(janela)
+Text(Point(300, 365), "Enviar").draw(janela)
+
+
+
+
+
+janela.getMouse()
+janela.close()
+
+
+
+
+
 print("LOGIN FEITO")
