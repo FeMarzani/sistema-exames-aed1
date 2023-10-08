@@ -44,7 +44,28 @@ def inicial():
     botao.setFace('courier')
     botao.draw(janela)
 
-    janela.getMouse()
-    janela.close()
 
-inicial()
+    # Criando uma condicional para verificar onde foi o clique do usuário.
+
+    # Definindo variáveis para o funcionamento da condicional
+    fechar = True
+    clique = None
+
+    # Enquanto for verdadeiro, a janela manterá aberta lendo os cliques do usuário.
+    while fechar:
+        coordenada = janela.getMouse()
+        y = int(coordenada.getY())
+        x = int(coordenada.getX())
+
+        print(coordenada)
+
+        # Se o usuário clicar na posição y e x de algum dos objetos a janela se fechará.
+        if y >= 300 and y <= 340 and x >= 350 and x <= 450:
+            clique = "login"
+            fechar = False
+        else:
+            if y >= 350 and y <= 390 and x >= 350 and x <= 450:
+                clique = "cadastro"
+                fechar = False
+
+    print(clique)

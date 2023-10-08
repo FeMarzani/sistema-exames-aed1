@@ -1,5 +1,5 @@
 # Importando o Graphics
-from graphics import *
+from utils.graphics import *
 
 # Importando o csv de dados de login
 dados = open("src/csv/dados.csv","r+")
