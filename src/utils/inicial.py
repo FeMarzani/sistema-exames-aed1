@@ -10,8 +10,6 @@ def inicial():
     retangulo = Rectangle(Point(30,30), Point(770,570))
     retangulo.draw(janela)
 
-    # Modificando cor para estilização
-    janela.setBackground('gray')
 
     # Adicionando uma imagem logo para a tela inicial
     img = Image(Point(400,200), "assets/medicina.png")
@@ -48,11 +46,10 @@ def inicial():
     # Criando uma condicional para verificar onde foi o clique do usuário.
 
     # Definindo variáveis para o funcionamento da condicional
-    fechar = True
     clique = None
 
     # Enquanto for verdadeiro, a janela manterá aberta lendo os cliques do usuário.
-    while fechar:
+    while True:
         coordenada = janela.getMouse()
         y = int(coordenada.getY())
         x = int(coordenada.getX())
@@ -62,10 +59,10 @@ def inicial():
         # Se o usuário clicar na posição y e x de algum dos objetos a janela se fechará.
         if y >= 300 and y <= 340 and x >= 350 and x <= 450:
             clique = "login"
-            fechar = False
+            janela.close()
+            return clique
         else:
             if y >= 350 and y <= 390 and x >= 350 and x <= 450:
                 clique = "cadastro"
-                fechar = False
-
-    print(clique)
+                janela.close()
+                return clique
