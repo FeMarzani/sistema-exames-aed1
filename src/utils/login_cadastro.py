@@ -6,6 +6,15 @@ print(clique)
 
 def login():
 
+    # Importando arquivo csv
+    dados = open("src/csv/dados.csv")
+    
+    # Lendo as linhas desse arquivo
+    linhas = dados.readlines()
+
+    # Retirando o cabeçalho
+    linhas = linhas[1:]
+
     # Abrindo uma janela nova com os mesmos parâmetros
     janela = GraphWin("Plataforma de Exames - Inicial", 800,600)
 
@@ -48,14 +57,32 @@ def login():
         button.draw(janela)
         Text(Point(400, 390), "Login").draw(janela)
 
-        janela.getMouse()
+        coordenada = janela.getMouse()
+        x = coordenada.getX()
+        y = coordenada.getY()
+        print(coordenada)
+        if x >= 350 and x <= 450 and y >= 370 and y <= 410:
+            # Buscando os valores de entrada do usuário
+            id_entrada = str(id.getText())
+            senha_entrada = str(senha.getText())
 
-        # Buscando os valores de entrada do usuário
-        id_entrada = str(id.getText())
-        senha_entrada = str(senha.getText())
-        print(id_entrada)
-        print(senha_entrada)
+            # Condicional para a verificação do Login
+            while login != True:
 
+                # Percorrendo cada posição das linhas sem espaços ou quebras etc.
+                for linha in linhas:
+                    linha = linha.strip().split(';')
+                    if id_entrada == linha[0]:
+                        if senha_entrada == linha[1]:
+                            print("login feito")
+                            login = True
+                            break
+                        else:
+                            print("senha invalida")
+                    else:
+                        print("id invalido")
+
+            dados.close()
 
     else:
         if clique == "cadastro":
@@ -88,7 +115,7 @@ def login():
         button.draw(janela)
         Text(Point(400, 390), "Cadastro").draw(janela)
 
-        janela.getMouse()
+        coordenada = janela.getMouse()
 
         # Buscando os valores de entrada do usuário
         id_entrada = str(id.getText())
