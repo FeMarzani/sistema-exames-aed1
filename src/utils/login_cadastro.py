@@ -63,24 +63,33 @@ def login():
         print(coordenada)
         if x >= 350 and x <= 450 and y >= 370 and y <= 410:
             # Buscando os valores de entrada do usuário
-            id_entrada = str(id.getText())
-            senha_entrada = str(senha.getText())
 
-            # Condicional para a verificação do Login
-            while login != True:
-
-                # Percorrendo cada posição das linhas sem espaços ou quebras etc.
+            def login(id_entrada,senha_entrada):
+                
+                # Condicional de verificação de login.
                 for linha in linhas:
                     linha = linha.strip().split(';')
                     if id_entrada == linha[0]:
                         if senha_entrada == linha[1]:
                             print("login feito")
-                            login = True
-                            break
+                            return True
                         else:
-                            print("senha invalida")
+                            return False
                     else:
-                        print("id invalido")
+                        return False
+
+            id_entrada = str(id.getText())
+            senha_entrada = str(senha.getText())
+
+            login_entrada = login(id_entrada, senha_entrada)
+
+            while login_entrada != True:
+                texto = Text(Point(400, 423), "Login inválido. Insira seus dados novamente.")
+                texto.setStyle('bold')
+                texto.draw(janela)
+                id_entrada = str(id.getText())
+                senha_entrada = str(senha.getText())
+                login_entrada = login(id_entrada,senha_entrada)
 
             dados.close()
 
