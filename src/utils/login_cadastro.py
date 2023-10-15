@@ -7,7 +7,7 @@ print(clique)
 def login():
 
     # Importando arquivo csv
-    dados = open("src/csv/dados.csv")
+    dados = open("src/csv/dados.csv", "a+")
     
     # Lendo as linhas desse arquivo
     linhas = dados.readlines()
@@ -57,41 +57,56 @@ def login():
         button.draw(janela)
         Text(Point(400, 390), "Login").draw(janela)
 
-        coordenada = janela.getMouse()
-        x = coordenada.getX()
-        y = coordenada.getY()
-        print(coordenada)
-        if x >= 350 and x <= 450 and y >= 370 and y <= 410:
-            # Buscando os valores de entrada do usuário
+        while True:
 
-            def login(id_entrada,senha_entrada):
-                
-                # Condicional de verificação de login.
-                for linha in linhas:
-                    linha = linha.strip().split(';')
-                    if id_entrada == linha[0]:
-                        if senha_entrada == linha[1]:
-                            print("login feito")
-                            return True
+            coordenada = janela.getMouse()
+            x = coordenada.getX()
+            y = coordenada.getY()
+            print(coordenada)
+
+            if x >= 350 and x <= 450 and y >= 370 and y <= 410:
+                # Buscando os valores de entrada do usuário
+
+                def login(id_entrada,senha_entrada):
+                    
+                    # Condicional de verificação de login.
+                    for linha in linhas:
+                        linha = linha.strip().split(';')
+                        if id_entrada == linha[0]:
+                            if senha_entrada == linha[1]:
+                                print("login feito")
+                                return True
+                            else:
+                                return False
                         else:
                             return False
-                    else:
-                        return False
 
-            id_entrada = str(id.getText())
-            senha_entrada = str(senha.getText())
-
-            login_entrada = login(id_entrada, senha_entrada)
-
-            while login_entrada != True:
-                texto = Text(Point(400, 423), "Login inválido. Insira seus dados novamente.")
-                texto.setStyle('bold')
-                texto.draw(janela)
                 id_entrada = str(id.getText())
                 senha_entrada = str(senha.getText())
-                login_entrada = login(id_entrada,senha_entrada)
 
-            dados.close()
+                login_entrada = login(id_entrada, senha_entrada)
+
+                coordenada = 0
+                x = 0
+                y = 0
+
+                while login_entrada != True:
+                    texto = Text(Point(400, 423), "Login inválido. Insira seus dados novamente.")
+                    texto.undraw()
+                    texto.setStyle('bold')
+                    texto.draw(janela)
+                    id_entrada = str(id.getText())
+                    senha_entrada = str(senha.getText())
+                    login_entrada = login(id_entrada,senha_entrada)
+                    coordenada = janela.getMouse()
+                    x = coordenada.getX()
+                    y = coordenada.getY()
+
+                texto.undraw()
+                janela.close()
+                dados.close()
+            else:
+                print(janela.getMouse())
 
     else:
         if clique == "cadastro":
@@ -124,15 +139,31 @@ def login():
         button.draw(janela)
         Text(Point(400, 390), "Cadastro").draw(janela)
 
-        coordenada = janela.getMouse()
+        while True:
 
-        # Buscando os valores de entrada do usuário
-        id_entrada = str(id.getText())
-        senha_entrada = str(senha.getText())
-        print(id_entrada)
-        print(senha_entrada)
+            coordenada = janela.getMouse()
+            x = coordenada.getX()
+            y = coordenada.getY()
+            print(coordenada)
 
+            if x >= 350 and x <= 450 and y >= 370 and y <= 410:
+                # Buscando os valores de entrada do usuário e cadastrando
 
-    janela.close()
+                id_entrada = str(id.getText())
+                senha_entrada = str(senha.getText())
+
+                minhastring = id_entrada + ';' + senha_entrada + '\n'
+                dados.write(minhastring)
+
+                for timer in range(100):
+                    texto = Text(Point(400, 423), "Cadastro realizado")
+                    texto2 = Text(Point(400, 443), "Em alguns segundos o login será feito automaticamente")
+                    texto.draw(janela)
+                    texto2.draw(janela)
+
+                janela.close()
+                dados.close()
+            else:
+                print(janela.getMouse())
 
 login()

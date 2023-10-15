@@ -42,6 +42,14 @@ def inicial():
     botao.setFace('courier')
     botao.draw(janela)
 
+    # Botão de login como médico
+    button = Rectangle(Point(305,400), Point(495,480))
+    button.setFill('aqua')
+    button.draw(janela)
+    botao = Text(Point(400,440), "Login como Médico")
+    botao.setStyle('bold')
+    botao.setFace('courier')
+    botao.draw(janela)
 
     # Criando uma condicional para verificar onde foi o clique do usuário.
 
