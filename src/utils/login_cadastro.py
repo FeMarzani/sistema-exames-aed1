@@ -15,8 +15,8 @@ def login():
     # Retirando o cabeçalho
     linhas = linhas[1:]
 
-    # Abrindo uma janela nova com os mesmos parâmetros
-    janela = GraphWin("Plataforma de Exames - Inicial", 800,600)
+    # Desenhando a janela com base na função 
+    janela = desenhar_janela()
 
     # Criando um Retangulo para "Bordalizar" a tela a fim de design.
     retangulo = Rectangle(Point(30,30), Point(770,570))
