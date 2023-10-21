@@ -117,13 +117,11 @@ def login():
                     x = coordenada.getX()
                     y = coordenada.getY()
 
-                apagar_objetos(desenhados)
                 dados.close()
                 log = "usuario"
                 return log
             else:
                 print(janela.getMouse())
-
     else:
         if clique == "medico":
             # Adicionando texto abaixo da logo
@@ -287,5 +285,3 @@ def login():
                     return log
                 else:
                     print(janela.getMouse())
-
-login()
