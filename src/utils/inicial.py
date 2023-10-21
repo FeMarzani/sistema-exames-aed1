@@ -87,3 +87,8 @@ def inicial():
                 clique = "cadastro"
                 apagar_objetos(desenhados)
                 return clique
+            else:
+                if y >= 400 and y <= 480 and x >= 305 and x <= 495:
+                    clique = "medico"
+                    apagar_objetos(desenhados)
+                    return clique
