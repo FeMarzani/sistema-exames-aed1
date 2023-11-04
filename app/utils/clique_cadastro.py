@@ -1,5 +1,5 @@
 # Função clique inicial para verificar o clique na tela inicial.
-def clique_login(janela):
+def clique_cadastro(janela):
 
     while True:
         coordenada = janela.getMouse()
@@ -12,10 +12,5 @@ def clique_login(janela):
         if x >= 719 and x <= 800 and y >= 542 and y <= 600:
             return "voltar"
         else:
-            if x >= 93 and x <= 296 and y >= 327 and y <= 383:
-                print("ENTRAR COMO PACIENTE")
+            if x >= 92 and x <= 296 and y >= 447 and y <= 504:
                 return "entrar_paciente"
-            else:
-                if x >= 93 and x <= 296 and y >= 424 and y <= 503:
-                    print("ENTRAR COMO MÉDICO")
-                    return "entrar_medico"

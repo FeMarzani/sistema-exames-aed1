@@ -4,6 +4,7 @@ from utils.desenhar_janela      import *
 from utils.apagar_objetos       import apagar_objetos
 from utils.coordenada_inicial   import *
 from utils.clique_login         import *
+from utils.clique_cadastro      import clique_cadastro
 
 def aplicacao():
 
@@ -41,6 +42,27 @@ def aplicacao():
                 desenhados.append(inicial)
                 inicial.draw(janela)
 
-                clique = clique_inicial(janela) 
+                clique = clique_inicial(janela)
+        else:
+            if clique == "cadastro":
+
+                # Apagando objetos da tela.
+                apagar_objetos(desenhados)
+
+                # Desenhando o design da tela de login
+                cadastro = Image(Point(400,300), "assets/cadastro.png")
+                cadastro.draw(janela)
+                desenhados.append(cadastro)
+
+                # Verificando clique para saber se o usuário clicou no login, login como médico ou voltar.
+                clique = clique_cadastro(janela)
+                if clique == "voltar":
+                    apagar_objetos(desenhados)
+
+                    desenhados.append(inicial)
+                    inicial.draw(janela)
+
+                    clique = clique_inicial(janela)
+
 
 aplicacao()
