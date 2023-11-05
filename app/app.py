@@ -18,6 +18,7 @@ def aplicacao():
     janela = desenhar_janela()
     inicial.draw(janela)
 
+    status = ""
     condicional = "voltar"
     while condicional == "voltar":
 
@@ -34,15 +35,63 @@ def aplicacao():
             login.draw(janela)
             desenhados.append(login)
 
+            # Desenhando os campos de entrada de dados para o login.
+
+            # EMAIL
+            email = Entry(Point(203, 165), 30)
+            email.draw(janela)
+            desenhados.append(email)
+
+            # SENHA
+            senha = Entry(Point(203, 277), 30)
+            senha.draw(janela)
+            desenhados.append(senha)
+
             # Verificando clique para saber se o usuário clicou no login, login como médico ou voltar.
-            clique = clique_login(janela)
-            if clique == "voltar":
+            clique_log = clique_login(janela)
+            if clique_log == "voltar":
                 apagar_objetos(desenhados)
 
                 desenhados.append(inicial)
                 inicial.draw(janela)
 
                 clique = clique_inicial(janela)
+            else:
+                if clique_log == "entrar_paciente":
+                    
+                    status_login = "espera"
+                    while status_login == "espera" and clique != "voltar":
+
+                        # ABRINDO CSV DOS DADOS PARA VERIFICAÇÃO
+                        login_paciente = open("csv/login_paciente.csv")
+
+                        # Lendo as linhas desse arquivo
+                        linhas = login_paciente.readlines()
+                        print(linhas)
+
+                        # Pegando email e senha
+                        email_entrada = str(email.getText())
+                        senha_entrada = str(senha.getText())
+
+                        # Criando uma condicional verificadora.
+                        for linha in linhas:
+                            linha = linha.strip().split(';')
+                            print(linha, linha[1], linha)
+                            if email_entrada == linha[1] and senha_entrada == linha[2]:
+                                print("SIM")
+                                status_login = "paciente_logado"
+                                break
+                            else:
+                                print("NÃO")
+                        
+                        if status_login == "paciente_logado":
+                            print("LOGIN REALIZADO")
+                            login_paciente.close()
+                            apagar_objetos(desenhados)
+                            status = "paciente_logado"
+                        else:
+                            print("NÃO REALIZADO O LOGIN, ACESSO INVÁLIDO")
+                            clique = clique_inicial(janela)
         else:
             if clique == "cadastro":
 
@@ -105,7 +154,12 @@ def aplicacao():
                             desenhados.append(texto2)
                             texto1.draw(janela)
                             texto2.draw(janela)
-                        condicional = "ok"
+                        
+                        status = "paciente_logado"
+        
+
+        "COLOCAR AQUI OS STATUS EXEMPLO: IF PACIENTE_LOGADO --> ABRE TELAS DE PACIENTE"
+
 
 
 aplicacao()
