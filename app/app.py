@@ -8,6 +8,7 @@ from utils.clique_login             import *
 from utils.clique_cadastro          import clique_cadastro
 from utils.clique_paciente_logado   import clique_paciente_logado
 from utils.clique_doutor_logado     import clique_doutor_logado
+from utils.consultar_exames         import consultar_exames
 
 def aplicacao():
 
@@ -222,6 +223,23 @@ def aplicacao():
                     inicial.draw(janela)
 
                     clique = clique_inicial
+                else:
+                    if clique == "cadastrar_exames":
+                        apagar_objetos(desenhados)
+
+                        cadastrar_exame = Image(Point(400,300), "assets/cadastrar_exame.png")
+                        cadastrar_exame.draw(janela)
+                        desenhados.append(cadastrar_exame)
+
+                        # A PARTIR DAQUI É NECESSÁRIO UMA NOVA FUNÇÃO PARA CLIQUE NO CADASTRO DE EXAMES.
+                    else:
+                        if clique == "consultar_exames":
+
+                            email_sessao = email_entrada
+                            consultar_exames(email_sessao)
+                            print("Arquivo de Consulta de Exames Gerado com Sucesso!")
+
+                            janela.close()
         else:
             if status == "doutor_logado":
 
