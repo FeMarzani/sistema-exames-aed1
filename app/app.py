@@ -92,10 +92,46 @@ def aplicacao():
                             status = "paciente_logado"
                         else:
                             print("NÃO REALIZADO O LOGIN, ACESSO INVÁLIDO")
-                            clique = clique_inicial(janela)
+                            clique = clique_login(janela)
                 else:
                     if clique_log == "entrar_medico":
-                        print("ENTRAR MÉDICO")
+                        
+                        status = "espera"
+                        while status == "espera" and clique != "voltar":
+
+                            # Abrindo CSV dos dados de médicos para a verificação.
+                            login_medico = open("csv/login_medico.csv")
+
+                            # Lendo as linhas desse CSV
+                            linhas = login_medico.readlines()
+                            print(linhas)
+
+                            # Pegando email e senha.
+                            email_entrada = str(email.getText())
+                            senha_entrada = str(senha.getText())
+
+                            # Colocando condicional verificadora.
+                            for linha in linhas:
+                                linha = linha.strip().split(';')
+                                print(linha, linha[1], linha[2])
+                                if email_entrada == linha[1] and senha_entrada == linha[2]:
+                                    print("HÁ UM DOUTOR COM ESSES DADOS. LOGIN REALIZADO.")
+                                    status = "doutor_logado"
+                                    break
+                                else:
+                                    print("NÃO")
+
+                            if status == "doutor_logado":
+                                print("LOGIN COMO DOUTOR REALIZADO.")
+                                login_medico.close()
+                                status = "doutor_logado"
+                            else:
+                                print("NÃO REALIZADO O LOGIN. ACESSO PARA DOUTOR INVÁLIDO")
+                                clique = clique_login(janela)
+
+
+
+
         else:
             if clique == "cadastro":
 
@@ -173,9 +209,9 @@ def aplicacao():
                 apagar_objetos(desenhados)
 
                 # Desenhando o design da tela de bem vindo paciente
-                cadastro = Image(Point(400,300), "assets/bem_vindo_paciente.png")
-                cadastro.draw(janela)
-                desenhados.append(cadastro)
+                bem_vindo = Image(Point(400,300), "assets/bem_vindo_paciente.png")
+                bem_vindo.draw(janela)
+                desenhados.append(bem_vindo)
 
                 clique = clique_paciente_logado(janela)
                 if clique == "voltar":
@@ -185,6 +221,18 @@ def aplicacao():
                     inicial.draw(janela)
 
                     clique = clique_inicial
+        else:
+            if status == "doutor_logado":
+
+                apagar_objetos(desenhados)
+
+                # Desenhando o design da tela de bem vindo doutor
+                bem_vindo_doutor = Image(Point(400,300), "assets/bem_vindo_paciente.png")
+                bem_vindo_doutor.draw(janela)
+                desenhados.append(bem_vindo_doutor)
+
+                # COLOCAR AQUI A FUNÇÃO DE CLIQUE PARA O DOUTOR. E CÓDIGO RESTANTE PARA ELE
+
 
 
 
