@@ -54,6 +54,22 @@ def aplicacao():
                 cadastro.draw(janela)
                 desenhados.append(cadastro)
 
+                # Abrindo campo de entrada de dados de cadastro.
+                ## NOME
+                nome = Entry(Point(203,165), 30)
+                nome.draw(janela)
+                desenhados.append(nome)
+
+                ## EMAIL
+                email = Entry(Point(203,285), 30)
+                email.draw(janela)
+                desenhados.append(email)
+
+                ## SENHA
+                senha = Entry(Point(203, 405), 30)
+                senha.draw(janela)
+                desenhados.append(senha)
+
                 # Verificando clique para saber se o usuário clicou no login, login como médico ou voltar.
                 clique = clique_cadastro(janela)
                 if clique == "voltar":
@@ -63,6 +79,33 @@ def aplicacao():
                     inicial.draw(janela)
 
                     clique = clique_inicial(janela)
+                else:
+                    if clique == "login_cadastro":
+                        print("CADASTRO FEITO, LOGIN AUTOMÁTICO REALIZADO.")
+
+                        # ABRINDO CSV DE CADASTRO DOS DADOS PARA INSERIR O PACIENTE NOVO
+                        login_paciente = open("csv/login_paciente.csv", "a+")
+
+                        # Pegando as entradas do usuário (nome, email e senha)
+                        nome_entrada = str(nome.getText())
+                        email_entrada = str(email.getText())
+                        senha_entrada = str(senha.getText())
+
+                        # Abrindo uma string de cadastro para ser a mensagem que será escrita no csv.
+                        string_cadastro = nome_entrada + ";" + email_entrada + ";" + senha_entrada + "\n"
+
+                        # Escrevendo o novo cadastro no CSV.
+                        login_paciente.write(string_cadastro)
+
+                        # Abrindo um timer para mostrar uma mensagem para o usuário. O login será feito automaticamente.
+                        for timer in range(200):
+                            texto1 = Text(Point(192, 540), "Cadastro realizado")
+                            texto2 = Text(Point(192, 555), "O login será feito automaticamente")
+                            desenhados.append(texto1)
+                            desenhados.append(texto2)
+                            texto1.draw(janela)
+                            texto2.draw(janela)
+                        condicional = "ok"
 
 
 aplicacao()

@@ -13,4 +13,4 @@ def clique_cadastro(janela):
             return "voltar"
         else:
             if x >= 92 and x <= 296 and y >= 447 and y <= 504:
-                return "entrar_paciente"
+                return "login_cadastro"
