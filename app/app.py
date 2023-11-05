@@ -59,8 +59,8 @@ def aplicacao():
             else:
                 if clique_log == "entrar_paciente":
                     
-                    status_login = "espera"
-                    while status_login == "espera" and clique != "voltar":
+                    status = "espera"
+                    while status == "espera" and clique != "voltar":
 
                         # ABRINDO CSV DOS DADOS PARA VERIFICAÇÃO
                         login_paciente = open("csv/login_paciente.csv")
@@ -79,12 +79,12 @@ def aplicacao():
                             print(linha, linha[1], linha)
                             if email_entrada == linha[1] and senha_entrada == linha[2]:
                                 print("SIM")
-                                status_login = "paciente_logado"
+                                status = "paciente_logado"
                                 break
                             else:
                                 print("NÃO")
                         
-                        if status_login == "paciente_logado":
+                        if status == "paciente_logado":
                             print("LOGIN REALIZADO")
                             login_paciente.close()
                             apagar_objetos(desenhados)
@@ -92,6 +92,9 @@ def aplicacao():
                         else:
                             print("NÃO REALIZADO O LOGIN, ACESSO INVÁLIDO")
                             clique = clique_inicial(janela)
+                else:
+                    if clique_log == "entrar_medico":
+                        print("ENTRAR MÉDICO")
         else:
             if clique == "cadastro":
 
@@ -155,10 +158,16 @@ def aplicacao():
                             texto1.draw(janela)
                             texto2.draw(janela)
                         
+                        apagar_objetos(desenhados)
                         status = "paciente_logado"
         
 
-        "COLOCAR AQUI OS STATUS EXEMPLO: IF PACIENTE_LOGADO --> ABRE TELAS DE PACIENTE"
+        if status == "paciente_logado":
+
+                # Desenhando o design da tela de bem vindo paciente
+                cadastro = Image(Point(400,300), "assets/bem_vindo_paciente.png")
+                cadastro.draw(janela)
+                desenhados.append(cadastro)
 
 
 
