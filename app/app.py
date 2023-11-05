@@ -1,3 +1,4 @@
+import time
 
 from utils.graphics             import *
 from utils.desenhar_janela      import *
@@ -87,7 +88,6 @@ def aplicacao():
                         if status == "paciente_logado":
                             print("LOGIN REALIZADO")
                             login_paciente.close()
-                            apagar_objetos(desenhados)
                             status = "paciente_logado"
                         else:
                             print("NÃO REALIZADO O LOGIN, ACESSO INVÁLIDO")
@@ -149,20 +149,27 @@ def aplicacao():
                         # Escrevendo o novo cadastro no CSV.
                         login_paciente.write(string_cadastro)
 
+                        # Mostrando mensagem ao usuário.
+                        texto1 = Text(Point(192, 540), "Cadastro realizado")
+                        texto2 = Text(Point(192, 555), "O login será feito automaticamente")
+                        texto1.draw(janela)
+                        texto2.draw(janela)
+                        desenhados.append(texto1)
+                        desenhados.append(texto2)
+
                         # Abrindo um timer para mostrar uma mensagem para o usuário. O login será feito automaticamente.
-                        for timer in range(200):
-                            texto1 = Text(Point(192, 540), "Cadastro realizado")
-                            texto2 = Text(Point(192, 555), "O login será feito automaticamente")
-                            desenhados.append(texto1)
-                            desenhados.append(texto2)
-                            texto1.draw(janela)
-                            texto2.draw(janela)
-                        
-                        apagar_objetos(desenhados)
+                        inicio = time.time()
+
+                        # Aguardando a duração especificada.
+                        while time.time() - inicio < 3:
+                            pass
+
                         status = "paciente_logado"
         
 
         if status == "paciente_logado":
+
+                apagar_objetos(desenhados)
 
                 # Desenhando o design da tela de bem vindo paciente
                 cadastro = Image(Point(400,300), "assets/bem_vindo_paciente.png")
