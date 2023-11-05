@@ -1,11 +1,12 @@
 import time
 
-from utils.graphics             import *
-from utils.desenhar_janela      import *
-from utils.apagar_objetos       import apagar_objetos
-from utils.coordenada_inicial   import *
-from utils.clique_login         import *
-from utils.clique_cadastro      import clique_cadastro
+from utils.graphics                 import *
+from utils.desenhar_janela          import *
+from utils.apagar_objetos           import apagar_objetos
+from utils.coordenada_inicial       import *
+from utils.clique_login             import *
+from utils.clique_cadastro          import clique_cadastro
+from utils.clique_paciente_logado   import clique_paciente_logado
 
 def aplicacao():
 
@@ -175,6 +176,18 @@ def aplicacao():
                 cadastro = Image(Point(400,300), "assets/bem_vindo_paciente.png")
                 cadastro.draw(janela)
                 desenhados.append(cadastro)
+
+                clique = clique_paciente_logado(janela)
+                if clique == "voltar":
+                    apagar_objetos(desenhados)
+
+                    desenhados.append(inicial)
+                    inicial.draw(janela)
+
+                    clique = clique_inicial
+
+
+
 
 
 
