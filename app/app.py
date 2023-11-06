@@ -12,6 +12,9 @@ from utils.consultar_exames         import consultar_exames
 from utils.clique_paciente_exames   import clique_paciente_exames
 from utils.clique_opcao_exame       import clique_opcao_exames
 from utils.relatorio                import relatorio_exames
+from utils.lista_pacientes          import lista_pacientes
+from utils.gerar_lista_click              import clique_lista
+
 
 def aplicacao():
 
@@ -74,6 +77,7 @@ def aplicacao():
 
                         # Lendo as linhas desse arquivo
                         linhas = login_paciente.readlines()
+                        login_paciente.close()
                         print(linhas)
 
                         # Pegando email e senha
@@ -93,10 +97,14 @@ def aplicacao():
                         
                         if status == "paciente_logado":
                             print("LOGIN REALIZADO")
-                            login_paciente.close()
                             status = "paciente_logado"
                         else:
                             print("NÃO REALIZADO O LOGIN, ACESSO INVÁLIDO")
+                            # Mostrando mensagem ao usuário.
+                            texto = Text(Point(185, 544), "Dados inválidos")
+                            texto.draw(janela)
+                            desenhados.append(texto)
+
                             clique = clique_login(janela)
                 else:
                     if clique_log == "entrar_medico":
@@ -109,6 +117,7 @@ def aplicacao():
 
                             # Lendo as linhas desse CSV
                             linhas = login_medico.readlines()
+                            login_medico.close()
                             print(linhas)
 
                             # Pegando email e senha.
@@ -128,15 +137,15 @@ def aplicacao():
 
                             if status == "doutor_logado":
                                 print("LOGIN COMO DOUTOR REALIZADO.")
-                                login_medico.close()
                                 status = "doutor_logado"
                             else:
                                 print("NÃO REALIZADO O LOGIN. ACESSO PARA DOUTOR INVÁLIDO")
+                                # Mostrando mensagem ao usuário.
+                                texto = Text(Point(185, 544), "Dados inválidos")
+                                texto.draw(janela)
+                                desenhados.append(texto)                          
                                 clique = clique_login(janela)
-
-
-
-
+                                
         else:
             if clique == "cadastro":
 
@@ -380,6 +389,7 @@ def aplicacao():
                                                 # Fechando sessão para sair do while.
                                                 sessao = "exit"
                                                 janela.close()
+                                                print("SESSÃO ENCERRADA. RELATÓRIO DE SAÚDE GERADO.")
 
                                                 # Código para gerar o relatório HTML.
 
@@ -401,24 +411,60 @@ def aplicacao():
                 apagar_objetos(desenhados)
 
                 # Desenhando o design da tela de bem vindo doutor
-                bem_vindo_doutor = Image(Point(400,300), "assets/bem_vindo_paciente.png")
+                bem_vindo_doutor = Image(Point(400,300), "assets/bem_vindo_doutor.png")
                 bem_vindo_doutor.draw(janela)
                 desenhados.append(bem_vindo_doutor)
 
                 clique = clique_doutor_logado(janela)
+                print(clique)
                 if clique == "voltar":
                     apagar_objetos(desenhados)
 
                     desenhados.append(inicial)
                     inicial.draw(janela)
 
-                    clique = clique_inicial
-                # COLOCAR AQUI A FUNÇÃO DE CLIQUE PARA O DOUTOR. E CÓDIGO RESTANTE PARA ELE
+                    clique = clique_inicial(janela)
+                else:
+                    if clique == "lista_pacientes":
 
+                        # COLOCAR AQUI A FUNÇÃO DE GERAR HTML DE LISTA DE PACIENTES
+                        lista_pacientes()
+                        janela.close()
+                    else:
+                        if clique == "pesquisar_pacientes":
+                            apagar_objetos(desenhados)
 
+                            # Abrir nova tela.
+                            gerar_lista = Image(Point(400,300), "assets/gerar_lista.png")
+                            gerar_lista.draw(janela)
+                            desenhados.append(gerar_lista)
 
+                            # Abrindo campo de entrada de email.
+                            # EMAIL
+                            email = Entry(Point(180,340), 30)
+                            email.draw(janela)
+                            desenhados.append(email)
 
+                            # Chamando a função de clique.
+                            clique = clique_lista(janela)
 
+                            if clique == "voltar":
+                                apagar_objetos(desenhados)
 
+                                desenhados.append(inicial)
+                                inicial.draw(janela)
+
+                                clique = clique_inicial(janela)
+                            else:
+                                if clique == "gerar_lista":
+
+                                    # Pegando o email de entrada do usuário a ser buscado.
+                                    email_usuario = str(email.getText())
+                                    email_sessao = email_usuario
+
+                                    # Chamando a função para buscar os exames do respectivo usuário com base no parametro
+                                    consultar_exames(email_sessao)
+
+                                    janela.close()
 
 aplicacao()

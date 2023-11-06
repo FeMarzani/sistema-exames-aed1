@@ -6,7 +6,7 @@ def relatorio_exames(email_entrada, ph_entrada, proteina_entrada, glicose_entrad
     ph_entrada = float(ph_entrada)
 
     if ph_entrada < 7.0:
-        analise_retorno = "pH considerado acido. Isto pode indicar problemas nos rins ou no sistema urinario."
+        ph_retorno = "pH considerado acido. Isto pode indicar problemas nos rins ou no sistema urinario."
     else:
         if ph_entrada == 7.0:
             ph_retorno = "pH neutro. Ponto 'normal'."
@@ -19,7 +19,7 @@ def relatorio_exames(email_entrada, ph_entrada, proteina_entrada, glicose_entrad
         if proteina_entrada == "Tracos" or proteina_entrada == "tracos":
             proteina_retorno = "Pequena quantidade detectada, mas ainda dentro dos limites normais."
         else:
-            proteina_retorno = "Quantidade significativa detectada. Sinal de problemas renais ou outras condiçoes."
+            proteina_retorno = "Quantidade significativa detectada. Sinal de problemas renais ou outras condicoes."
 
     if glicose_entrada == "Ausente" or glicose_entrada == "ausente":
         glicose_retorno = "Normal. Nao detectado."
