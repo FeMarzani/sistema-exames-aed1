@@ -11,6 +11,7 @@ from utils.clique_doutor_logado     import clique_doutor_logado
 from utils.consultar_exames         import consultar_exames
 from utils.clique_paciente_exames   import clique_paciente_exames
 from utils.clique_opcao_exame       import clique_opcao_exames
+from utils.relatorio                import relatorio_exames
 
 def aplicacao():
 
@@ -372,6 +373,11 @@ def aplicacao():
                                                 paciente_exames.write(string_exame)
                                                 paciente_exames.close()
                                                 print("SALVO NO CSV")
+
+                                                # Gerando HTML
+                                                relatorio_exames(email_entrada, ph_entrada, proteina_entrada, glicose_entrada)
+
+                                                # Fechando sessão para sair do while.
                                                 sessao = "exit"
                                                 janela.close()
 
