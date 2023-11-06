@@ -9,6 +9,8 @@ from utils.clique_cadastro          import clique_cadastro
 from utils.clique_paciente_logado   import clique_paciente_logado
 from utils.clique_doutor_logado     import clique_doutor_logado
 from utils.consultar_exames         import consultar_exames
+from utils.clique_paciente_exames   import clique_paciente_exames
+from utils.clique_opcao_exame       import clique_opcao_exames
 
 def aplicacao():
 
@@ -222,24 +224,151 @@ def aplicacao():
                     desenhados.append(inicial)
                     inicial.draw(janela)
 
-                    clique = clique_inicial
+                    clique = clique_inicial(janela)
                 else:
                     if clique == "cadastrar_exames":
-                        apagar_objetos(desenhados)
+                        sessao = ""
+                        while sessao != "exit":
+                            apagar_objetos(desenhados)
 
-                        cadastrar_exame = Image(Point(400,300), "assets/cadastrar_exame.png")
-                        cadastrar_exame.draw(janela)
-                        desenhados.append(cadastrar_exame)
+                            cadastrar_exame = Image(Point(400,300), "assets/cadastrar_exame.png")
+                            cadastrar_exame.draw(janela)
+                            desenhados.append(cadastrar_exame)
 
-                        # A PARTIR DAQUI É NECESSÁRIO UMA NOVA FUNÇÃO PARA CLIQUE NO CADASTRO DE EXAMES.
+                            # CRIANDO CAMPOS PARA A ENTRADA DE INFORMAÇÕES DOS EXAMES.
+
+                            # VOLUME
+                            volume = Entry(Point(165, 240), 15)
+                            volume.draw(janela)
+                            desenhados.append(volume)
+
+                            # COR
+                            cor = Entry(Point(165, 311), 15)
+                            cor.draw(janela)
+                            desenhados.append(cor)
+
+                            # ASPECTO
+                            aspecto = Entry(Point(165, 387), 15)
+                            aspecto.draw(janela)
+                            desenhados.append(aspecto)
+
+                            # pH
+                            ph = Entry(Point(165, 460), 15)
+                            ph.draw(janela)
+                            desenhados.append(ph)
+
+                            # DENSIDADE
+                            densidade = Entry(Point(165, 533), 15)
+                            densidade.draw(janela)
+                            desenhados.append(densidade)
+
+                            # PROTEÍNA
+                            proteina = Entry(Point(420,238), 15)
+                            proteina.draw(janela)
+                            desenhados.append(proteina)
+
+                            # GLICOSE
+                            glicose = Entry(Point(420,316), 15)
+                            glicose.draw(janela)
+                            desenhados.append(glicose)
+
+                            # LEUCÓCITOS
+                            leucocitos = Entry(Point(435,386), 15)
+                            leucocitos.draw(janela)
+                            desenhados.append(leucocitos)
+
+                            # CORPOS CETÔNICOS
+                            corpos = Entry(Point(465,462), 10)
+                            corpos.draw(janela)
+                            desenhados.append(corpos)
+
+                            # HEMOGLOBINA
+                            hemoglobina = Entry(Point(440,536), 10)
+                            hemoglobina.draw(janela)
+                            desenhados.append(hemoglobina)
+
+                            # BILIRRUBINA
+                            bilirrubina = Entry(Point(715,240), 10)
+                            bilirrubina.draw(janela)
+                            desenhados.append(bilirrubina)
+
+                            # UROBILINOGÊNIO
+                            urobilinogenio = Entry(Point(715,315), 10)
+                            urobilinogenio.draw(janela)
+                            desenhados.append(urobilinogenio)
+
+                            # NITRITO
+                            nitrito = Entry(Point(715,390), 10)
+                            nitrito.draw(janela)
+                            desenhados.append(nitrito)
+
+                            # DATA DO EXAME
+                            data = Entry(Point(715,462), 7)
+                            data.draw(janela)
+                            desenhados.append(data)
+
+                            clique = clique_paciente_exames(janela)
+                            
+                            if clique == "voltar":
+                                apagar_objetos(desenhados)
+                                sessao = "exit"
+
+                                desenhados.append(inicial)
+                                inicial.draw(janela)
+
+                                clique = clique_inicial(janela)
+                            else:
+                                if clique == "enviar_exame":
+
+                                    # Pegando os textos das entradas de dados para variáveis de sessão.
+                                    email_entrada = email_entrada
+                                    volume_entrada = str(volume.getText())
+                                    cor_entrada = str(cor.getText())
+                                    aspecto_entrada = str(aspecto.getText())
+                                    ph_entrada = str(ph.getText())
+                                    densidade_entrada = str(densidade.getText())
+                                    proteina_entrada = str(proteina.getText())
+                                    glicose_entrada = str(glicose.getText())
+                                    leucocitos_entrada = str(leucocitos.getText())
+                                    corpos_entrada = str(corpos.getText())
+                                    hemoglobina_entrada = str(hemoglobina.getText())
+                                    bilirrubina_entrada = str(bilirrubina.getText())
+                                    urobilinogenio_entrada = str(urobilinogenio.getText())
+                                    nitrito_entrada = str(nitrito.getText())
+                                    data_entrada = str(data.getText())
+
+                                    apagar_objetos(desenhados)
+
+                                    opcao_exame = Image(Point(400,300), "assets/opcao_exame.png")
+                                    opcao_exame.draw(janela)
+                                    desenhados.append(opcao_exame)
+
+                                    # Adicionando função para verificar clique na tela de opção exame.
+                                    clique = clique_opcao_exames(janela)
+
+                                    if clique == "voltar":
+                                        apagar_objetos(desenhados)
+                                        sessao = "exit"
+
+                                        desenhados.append(inicial)
+                                        inicial.draw(janela)
+
+                                        clique = clique_inicial(janela)
+                                    else:
+                                        if clique == "editar_exame":
+                                            apagar_objetos(desenhados)
                     else:
                         if clique == "consultar_exames":
 
                             email_sessao = email_entrada
                             consultar_exames(email_sessao)
-                            print("Arquivo de Consulta de Exames Gerado com Sucesso!")
+                            print("Arquivo de Consulta de Exames Gerado com Sucesso. Sistema retornando a tela inicial!")
 
-                            janela.close()
+                            apagar_objetos(desenhados)
+
+                            desenhados.append(inicial)
+                            inicial.draw(janela)
+                            clique = clique_inicial(janela)
         else:
             if status == "doutor_logado":
 
