@@ -7,7 +7,7 @@
 </div>
 
 <div align="center">
-  <p>Equipe por trás do sistema</p>
+  <p>Desenvolvedores por trás do sistema</p>
 </div>
 
 <div align="center">
