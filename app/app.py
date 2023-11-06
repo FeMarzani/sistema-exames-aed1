@@ -321,8 +321,8 @@ def aplicacao():
                                 if clique == "enviar_exame":
 
                                     # Pegando os textos das entradas de dados para variáveis de sessão.
-                                    email_entrada = email_entrada
                                     volume_entrada = str(volume.getText())
+                                    print(volume_entrada)
                                     cor_entrada = str(cor.getText())
                                     aspecto_entrada = str(aspecto.getText())
                                     ph_entrada = str(ph.getText())
@@ -357,6 +357,26 @@ def aplicacao():
                                     else:
                                         if clique == "editar_exame":
                                             apagar_objetos(desenhados)
+                                        else:
+                                            if clique == "gerar_relatorio":
+
+                                                # Abrindo CSV para salvar o exame.
+                                                paciente_exames = open("csv/paciente_exames.csv", "a+")
+
+                                                # Abrindo uma string de cadastro para ser a mensagem que será salva no CSV de exames
+                                                # E que também será utilizada ao realizar o relatório.
+
+                                                string_exame = email_entrada + ';' + volume_entrada + ';' + cor_entrada + ';' + aspecto_entrada + ';' + ph_entrada + ';' + densidade_entrada + ';' + proteina_entrada + ';' + glicose_entrada + ';' + leucocitos_entrada + ';' + corpos_entrada + ';' + hemoglobina_entrada + ';' + bilirrubina_entrada + ';' + urobilinogenio_entrada + ';' + nitrito_entrada + ';' + data_entrada + "\n"
+
+                                                # Escrevendo o exame no CSV.
+                                                paciente_exames.write(string_exame)
+                                                paciente_exames.close()
+                                                print("SALVO NO CSV")
+                                                sessao = "exit"
+                                                janela.close()
+
+                                                # Código para gerar o relatório HTML.
+
                     else:
                         if clique == "consultar_exames":
 
