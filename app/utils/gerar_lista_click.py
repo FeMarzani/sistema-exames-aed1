@@ -1,3 +1,5 @@
+# Função para obter o clique do usuário na aba de geração de lista de pacientes, dentro da sessão de doutor.
+
 def clique_lista(janela):
 
     while True:

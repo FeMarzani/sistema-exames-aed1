@@ -3,8 +3,10 @@ def relatorio_exames(email_entrada, ph_entrada, proteina_entrada, glicose_entrad
 
     # PROCESSANDO AS VARIÁVEIS PARA A ANÁLISE.
 
+    # Convertendo o PH para um valor real.
     ph_entrada = float(ph_entrada)
 
+    # Realizando a verificação de variáveis para adquirir uma "análise dos dados dos exames"
     if ph_entrada < 7.0:
         ph_retorno = "pH considerado acido. Isto pode indicar problemas nos rins ou no sistema urinario."
     else:

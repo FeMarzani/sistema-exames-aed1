@@ -6,12 +6,12 @@ def consultar_exames(email_sessao):
     # Abrindo o arquivo csv.
     paciente_exames = open('csv/paciente_exames.csv')
 
-        
     # Pegando as linhas do csv.
     linhas = paciente_exames.readlines()
 
     paciente_exames.close()
 
+    # Abrindo o arquivo .html de consulta de exames.
     with open('consultar_exames.html', 'w') as consultar_exames:
 
         # Escrevendo estrutura básica do HTML
@@ -26,6 +26,7 @@ def consultar_exames(email_sessao):
         consultar_exames.write('<table border="1">')
         consultar_exames.write('<tr>')
 
+        # Condicional para verificar informações de dentro das linhas. 
         for linha in linhas:
             if linha == linhas[0]: #CABEÇALHO
                 linha = linha.strip().split(';')
@@ -39,8 +40,9 @@ def consultar_exames(email_sessao):
                 consultar_exames.write(f'</tr>\n')
             else:
                 linha = linha.strip().split(';')
+
+                # Verificando se o email da sessão é igual ao email da respectiva linha, caso não for ele passa e muda de linha até encontrar o email que for igual ao email da sessão.
                 if email_sessao == linha[0]:
-                    print("É IGUAL")
 
                     consultar_exames.write('<tr>')
 

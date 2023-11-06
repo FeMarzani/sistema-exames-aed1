@@ -12,6 +12,7 @@ def clique_opcao_exames(janela):
         if x >= 719 and x <= 800 and y >= 542 and y <= 600:
             return "voltar"
         else:
+            # Se clicar aqui, ele retornara uma variável para entrar na sessão de geração de relatório, posteriormente à inserção de dados do exame.
             if x >= 93 and x <= 296 and y >= 243 and y <= 298:
                 return "gerar_relatorio"
             else:

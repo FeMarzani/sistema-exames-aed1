@@ -12,10 +12,10 @@ def clique_login(janela):
         if x >= 719 and x <= 800 and y >= 542 and y <= 600:
             return "voltar"
         else:
+            # Se clicar aqui, ele retornara uma variável para entrar na sessão de login como paciente.
             if x >= 93 and x <= 296 and y >= 327 and y <= 383:
-                print("ENTRAR COMO PACIENTE")
                 return "entrar_paciente"
             else:
+                # Se clicar aqui, ele retornara uma variável para entrar na sessão de login como médico.
                 if x >= 93 and x <= 296 and y >= 424 and y <= 503:
-                    print("ENTRAR COMO MÉDICO")
                     return "entrar_medico"

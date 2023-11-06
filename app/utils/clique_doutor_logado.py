@@ -13,7 +13,7 @@ def clique_doutor_logado(janela):
             return 'voltar'
         else:
             if x >= 93 and x <= 296 and y >= 242 and y <= 323:
-                return 'lista_pacientes' # Gerar um relatório HTML contendo toda a lista de pacientes (nome, email apenas)
+                return 'lista_pacientes' # Gerar um relatório HTML contendo toda a lista de pacientes (nome, email e senha)
             else:
                 if x >= 93 and x <= 296 and y >= 340 and y <= 417:
-                    return 'pesquisar_pacientes' # Entrada de email
+                    return 'pesquisar_pacientes' # Abre a tela que permite dar entrada em um email de um paciente e obter o retorno em html dessa lista no arquivo app.py.
